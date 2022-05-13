@@ -8,6 +8,7 @@ const AddBook = () => {
   const [author, setAuthor] = useState("");
   const [status, setStatus] = useState("Available");
   const [error, setError] = useState({ err: false, errMsg: "" });
+  
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -35,7 +36,8 @@ const AddBook = () => {
   return (
     <>
       <div className="p-4 box">
-        {error.err && <Alert variant="danger">{error.errMsg}</Alert>}
+        {error.errMsg && <Alert variant={error.err?"danger":"success"} dismissible onClose={() => setError("")}>{error.errMsg}</Alert>}
+        {/* {error ? <Alert variant="danger">{error.errMsg}</Alert> : <Alert variant="success">{error.errMsg}</Alert>} */}
         <Form onSubmit={submitHandler}>
           {/* Book Titleの入力欄 */}
           <Form.Group className="mb-3" controlId="formBookTitle">
@@ -68,7 +70,7 @@ const AddBook = () => {
               variant="success"
               onClick={(e) => {
                 setStatus("Available");
-                setFlag(false);
+                setFlag(!flag);
               }}
             >
               Available
@@ -78,7 +80,7 @@ const AddBook = () => {
               disabled={!flag}
               onClick={(e) => {
                 setStatus("Not Available");
-                setFlag(false);
+                setFlag(!flag);
               }}
             >
               Not Available

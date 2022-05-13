@@ -1,10 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import AddBook from "./components/AddBook";
 import { Col, Container, Navbar, Row } from "react-bootstrap";
 import BooksList from "./components/BooksList";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
+  const [bookId, setBookId] = useState("");
+
+  const getBookIdHandler = (id) => {
+    console.log("Id for edit: ", id);
+    setBookId(id)
+  }
+
   return (
     <Fragment>
       <Navbar bg="black" className="header">
@@ -16,7 +23,7 @@ const App = () => {
       <Container style={{width: "400px"}}>
         <Row>
           <Col>
-            <AddBook />
+            <AddBook bookId={bookId} setBookId={setBookId} />
           </Col>
         </Row>
       </Container>
@@ -24,7 +31,7 @@ const App = () => {
       <Container>
         <Row>
           <Col>
-            <BooksList />
+            <BooksList getBookIdHandler={getBookIdHandler} />
           </Col>
         </Row>
       </Container>

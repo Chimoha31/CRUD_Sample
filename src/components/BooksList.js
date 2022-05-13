@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import BookDataService from "../services/book.services";
 
-const BooksList = () => {
+const BooksList = ({getBookIdHandler}) => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -15,11 +15,8 @@ const BooksList = () => {
     setBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
-  const getBookId = () => {};
-
   const deleteHandler = async (id) => {
-    const delet = await BookDataService.deleteBook(id);
-    console.log(delet)
+    await BookDataService.deleteBook(id);
     // 削除した後はbooklistをリフレッシュしたい為、getBooks()をもう一度ここで呼び出す。
     getBooks();
   }
@@ -50,7 +47,7 @@ const BooksList = () => {
                 <Button
                   variant="secondary"
                   className="edit"
-                  onClick={(e) => getBookId(book.id)}
+                  onClick={(e) => getBookIdHandler(book.id)}
                 >
                   Edit
                 </Button>

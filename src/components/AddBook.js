@@ -12,6 +12,7 @@ const AddBook = ({ bookId, setBookId }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setError("");
+    
     if (title === "" || author === "") {
       setError({ err: true, errMsg: "To fill all is required" });
       return;
@@ -22,6 +23,7 @@ const AddBook = ({ bookId, setBookId }) => {
       status,
     };
     console.log(newBook);
+
     try {
       if(bookId !== "undefined" && bookId !== "") {
         await BookDataService.updateBook(bookId, newBook);
@@ -71,7 +73,6 @@ const AddBook = ({ bookId, setBookId }) => {
             {error.errMsg}
           </Alert>
         )}
-        {/* {error ? <Alert variant="danger">{error.errMsg}</Alert> : <Alert variant="success">{error.errMsg}</Alert>} */}
         <Form onSubmit={submitHandler}>
           {/* Book Titleの入力欄 */}
           <Form.Group className="mb-3" controlId="formBookTitle">
